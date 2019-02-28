@@ -37,6 +37,7 @@ public class MagicSquareController {
     	int order = Integer.parseInt(order1.getText());
     	System.out.println(""+centralBox.getValue());
     	int central1 = 0;
+    	
     	if(centralBox.getValue() == "Right") 
     		central1 = 1;
     	else if(centralBox.getValue() == "Left") 
@@ -45,6 +46,7 @@ public class MagicSquareController {
     		central1 = 3;
     	else 
     		central1 = 4;
+    	
     	int sense1 = 0;
     	if(sense.getValue() == "NO")
     		sense1 =1;
