@@ -1,4 +1,5 @@
 package model;
+import exception.*;
 
 public class MagicSquare
 {
@@ -15,22 +16,25 @@ public class MagicSquare
 	public final static int ABOVE = 3;
 	public final static int DOWN = 4;
 
-	public MagicSquare(int order, int sense, int centralBox)
+	public MagicSquare(int order, int sense, int centralBox) 
 	{
-		this.order = order;
-		this.sense = sense;
-		this.centralBox = centralBox;
-		square = new int[order][order];
-		if ((order % 2) != 0) {
-			for(int i = 0; i< square.length; i++)
-			{
-				for(int j = 0; j< square[i].length; j++)
-				{
-					square[i][j] = 0;
+		try
+		{
+			this.order = order;
+			this.sense = sense;
+			this.centralBox = centralBox;
+			square = new int[order][order];
+			if ((order % 2) != 0) {
+				for(int i = 0; i< square.length; i++){
+					for(int j = 0; j< square[i].length; j++){
+						square[i][j] = 0;
+					}
 				}
-			}
-		}else 
+			}else 
+				throw new OddNumberException(order);
+		}catch(OddNumberException oddNumberExcetion){
 			System.out.println("Please enter an odd number");
+		}
 	}
 
 	public void setOrder(int order)
@@ -139,7 +143,8 @@ public class MagicSquare
 					square[i][j]=a;
 				}
 			}
-		}
+		}else 
+			System.out.println("The chosen combination is not available");
 	}
 	
 	public void fillBoxLeft(int order, int sense){
@@ -192,7 +197,8 @@ public class MagicSquare
 					square[i][j]=a;
 				}
 			}
-		}
+		}else 
+			System.out.println("Option not available");
 	}
 	
 	public void fillBoxAbove(int order, int sense) {
@@ -246,14 +252,15 @@ public class MagicSquare
 					square[j][i]=a;
 				}
 			}
-		}
+		}else 
+			System.out.println("Option not available");
 	}
 	
 	public void fillBoxDown(int order, int sense){
 		int a = 1;
 		int i = ((order-1)/2);
 		int j = (square.length-1);
-		square[i][j] = a;
+		square[j][i] = a;
 		if(sense == SO) {
 			while(full() !=0 ){
 				a++;
@@ -301,7 +308,8 @@ public class MagicSquare
 					square[j][i]=a;
 				}
 			}
-		}
+		}else 
+			System.out.println("Option not available");
 	}
 	public void fillBox(int order, int sense, int centralBox)
 	{
@@ -310,11 +318,11 @@ public class MagicSquare
 		else if (centralBox == LEFT) 
 			fillBoxLeft(order,sense);
 		else if(centralBox == ABOVE)
-			fillBoxLeft(order,sense);
+			fillBoxAbove(order,sense);
 		else if (centralBox == DOWN) 
-			fillBoxLeft(order,sense);
+			fillBoxDown(order,sense);
 		else 
-			System.out.println("Error");
+			System.out.println("Option not available");
 	}
 	
 	public String magicSquare(){
